@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="zh-CN">
   <head>
-    <title>飞机舷窗</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>舷窗</title>
 
     <style>
       * {
@@ -20,7 +24,7 @@
       .root {
         position: relative;
         width: 100%;
-        height: 100vh;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -60,7 +64,7 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        left: 50%; */
+        left: 50%;
         width: 100%;
         height: 100%;
         padding: 28% 0 25% 0;
@@ -75,8 +79,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        row-gap: 20px;
-        padding: 0 30px 0 0;
+        gap: 20px;
+        padding: 0 0 0 30px;
       }
 
       .vistas .item {
@@ -97,6 +101,11 @@
       }
 
       @media screen and (max-width: 930px) {
+        .root {
+          display: flex;
+          flex-direction: column;
+        }
+
         .main {
           width: 100%;
           height: auto;
@@ -108,12 +117,28 @@
           width: 100%;
           height: auto;
         }
+
+        .vistas {
+          flex-direction: row;
+          flex-wrap: wrap;
+          padding: 30px;
+          display: none;
+        }
       }
     </style>
   </head>
 
   <body>
     <div class="root">
+      <div class="main">
+        <img src="./assets/porthole.png" />
+        <div class="video">
+          <video id="video" autoplay loop muted>
+            <source src="./assets/巴塔哥尼亚的高山.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
       <div class="vistas">
         <div class="item" data-src="巴塔哥尼亚的高山">
           <img src="./assets/巴塔哥尼亚的高山.jpg" />
@@ -131,17 +156,17 @@
           <img src="./assets/迪拜城市轮廓线.jpg" />
           <span>迪拜城市轮廓线</span>
         </div>
+        <!-- <div class="item" data-src="伦敦城市轮廓线">
+          <img src="./assets/伦敦城市轮廓线.jpg" />
+          <span>伦敦城市轮廓线</span>
+        </div> -->
+        <!-- <div class="item" data-src="大峡谷沉积物">
+          <img src="./assets/大峡谷沉积物.jpg" />
+          <span>大峡谷沉积物</span>
+        </div> -->
         <div class="item" data-src="杰克鱼群">
           <img src="./assets/杰克鱼群.jpg" />
           <span>杰克鱼群</span>
-        </div>
-      </div>
-      <div class="main">
-        <img src="./assets/porthole.png" />
-        <div class="video">
-          <video id="video" autoplay loop muted>
-            <source src="./assets/巴塔哥尼亚的高山.mp4" type="video/mp4" />
-          </video>
         </div>
       </div>
     </div>
