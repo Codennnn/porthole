@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
   <head>
     <title>飞机舷窗</title>
@@ -19,7 +20,7 @@
       .root {
         position: relative;
         width: 100%;
-        height: 100%;
+        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -70,6 +71,31 @@
         height: 100%;
       }
 
+      .vistas {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 20px;
+        padding: 0 30px 0 0;
+      }
+
+      .vistas .item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+      }
+
+      .vistas img {
+        width: 200px;
+        border-radius: 5%;
+      }
+
+      .vistas img ~ span {
+        margin-top: 10px;
+      }
+
       @media screen and (max-width: 930px) {
         .main {
           width: 100%;
@@ -88,18 +114,48 @@
 
   <body>
     <div class="root">
+      <div class="vistas">
+        <div class="item" data-src="迪拜城市轮廓线">
+          <img src="./assets/迪拜城市轮廓线.jpg" />
+          <span>迪拜城市轮廓线</span>
+        </div>
+        <div class="item" data-src="巴塔哥尼亚的高山">
+          <img src="./assets/巴塔哥尼亚的高山.jpg" />
+          <span>巴塔哥尼亚的高山</span>
+        </div>
+        <div class="item" data-src="格陵兰大冰川">
+          <img src="./assets/格陵兰大冰川.jpg" />
+          <span>格陵兰大冰川</span>
+        </div>
+        <div class="item" data-src="加勒比">
+          <img src="./assets/加勒比.jpg" />
+          <span>加勒比</span>
+        </div>
+        <div class="item" data-src="杰克鱼群">
+          <img src="./assets/杰克鱼群.jpg" />
+          <span>杰克鱼群</span>
+        </div>
+      </div>
       <div class="main">
         <img src="./porthole.png" />
         <div class="video">
-          <video autoplay loop muted>
-            <source src="./screen1.mp4" type="video/mp4" />
-            <!-- <source src="./screen2.mp4" type="video/mp4" /> -->
-            <!-- <source src="./screen3.mp4" type="video/mp4" /> -->
-            <!-- <source src="./screen4.mp4" type="video/mp4" /> -->
-            <!-- <source src="./screen5.mp4" type="video/mp4" /> -->
+          <video id="video" autoplay loop muted>
+            <source src="./assets/巴塔哥尼亚的高山.mp4" type="video/mp4" />
           </video>
         </div>
       </div>
     </div>
+
+    <script>
+      const video = document.querySelector("#video");
+      const items = document.querySelectorAll(".vistas .item");
+
+      items.forEach((item) => {
+        item.addEventListener("click", (ev) => {
+          video.src = `./assets/${ev.currentTarget.dataset.src}.mp4`;
+          video.load();
+        });
+      });
+    </script>
   </body>
 </html>
