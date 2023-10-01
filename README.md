@@ -6,6 +6,4 @@
 
 无论是在家中、办公室还是旅行途中，都可以通过这个网页享受到大自然的美丽和宁静。
 
-<video width="1000" autoplay controls>
-  <source src="./assets/screen-video.mp4" type="video/mp4">
-</video>
+![网页效果展示](./assets/screenshot.png)
