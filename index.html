@@ -75,12 +75,32 @@
         height: 100%;
       }
 
-      .vistas {
+      .popup {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 999;
+        width: 450px;
+        overflow-y: auto;
+        backdrop-filter: blur(30px) saturate(120%);
+        border-left: 1px solid #5a6275;
+        display: none;
+      }
+
+      .popup.show {
         display: flex;
         flex-direction: column;
-        align-items: center;
+      }
+
+      .vistas {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
         gap: 20px;
-        padding: 0 0 0 30px;
+        max-height: 100%;
+        padding: 20px;
+        overflow-y: auto;
       }
 
       .vistas .item {
@@ -92,12 +112,23 @@
       }
 
       .vistas img {
-        width: 200px;
+        width: 100%;
         border-radius: 5%;
       }
 
       .vistas img ~ span {
         margin-top: 10px;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      #select {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 99;
       }
 
       @media screen and (max-width: 930px) {
@@ -118,11 +149,14 @@
           height: auto;
         }
 
+        .popup {
+          width: 100vw;
+        }
+
         .vistas {
           flex-direction: row;
           flex-wrap: wrap;
           padding: 30px;
-          display: none;
         }
       }
     </style>
@@ -130,6 +164,8 @@
 
   <body>
     <div class="root">
+      <button id="select">选择风景</button>
+
       <div class="main">
         <img src="./assets/porthole.png" />
         <div class="video">
@@ -139,40 +175,69 @@
         </div>
       </div>
 
-      <div class="vistas">
-        <div class="item" data-src="巴塔哥尼亚的高山">
-          <img src="./assets/巴塔哥尼亚的高山.jpg" />
-          <span>巴塔哥尼亚的高山</span>
+      <div class="popup">
+        <div style="padding: 20px 20px 10px 20px">
+          <button id="close-btn">关闭</button>
         </div>
-        <div class="item" data-src="格陵兰大冰川">
-          <img src="./assets/格陵兰大冰川.jpg" />
-          <span>格陵兰大冰川</span>
-        </div>
-        <div class="item" data-src="加勒比">
-          <img src="./assets/加勒比.jpg" />
-          <span>加勒比</span>
-        </div>
-        <div class="item" data-src="迪拜城市轮廓线">
-          <img src="./assets/迪拜城市轮廓线.jpg" />
-          <span>迪拜城市轮廓线</span>
-        </div>
-        <!-- <div class="item" data-src="伦敦城市轮廓线">
-          <img src="./assets/伦敦城市轮廓线.jpg" />
-          <span>伦敦城市轮廓线</span>
-        </div> -->
-        <!-- <div class="item" data-src="大峡谷沉积物">
-          <img src="./assets/大峡谷沉积物.jpg" />
-          <span>大峡谷沉积物</span>
-        </div> -->
-        <div class="item" data-src="杰克鱼群">
-          <img src="./assets/杰克鱼群.jpg" />
-          <span>杰克鱼群</span>
+        <div style="flex: 1; overflow: hidden">
+          <div class="vistas">
+            <div class="item" data-src="巴塔哥尼亚的高山">
+              <img src="./assets/巴塔哥尼亚的高山.jpg" />
+              <span>巴塔哥尼亚的高山</span>
+            </div>
+            <div class="item" data-src="巴塔哥尼亚湖">
+              <img src="./assets/巴塔哥尼亚湖.jpg" />
+              <span>巴塔哥尼亚湖</span>
+            </div>
+            <div class="item" data-src="格陵兰大冰川">
+              <img src="./assets/格陵兰大冰川.jpg" />
+              <span>格陵兰大冰川</span>
+            </div>
+            <div class="item" data-src="加勒比">
+              <img src="./assets/加勒比.jpg" />
+              <span>加勒比</span>
+            </div>
+            <div class="item" data-src="迪拜城市轮廓线">
+              <img src="./assets/迪拜城市轮廓线.jpg" />
+              <span>迪拜城市轮廓线</span>
+            </div>
+            <div class="item" data-src="伦敦城市轮廓线">
+              <img src="./assets/伦敦城市轮廓线.jpg" />
+              <span>伦敦城市轮廓线</span>
+            </div>
+            <div class="item" data-src="纽约中城区">
+              <img src="./assets/纽约中城区.jpg" />
+              <span>纽约中城区</span>
+            </div>
+            <div class="item" data-src="大峡谷沉积物">
+              <img src="./assets/大峡谷沉积物.jpg" />
+              <span>大峡谷沉积物</span>
+            </div>
+            <div class="item" data-src="杰克鱼群">
+              <img src="./assets/杰克鱼群.jpg" />
+              <span>杰克鱼群</span>
+            </div>
+            <div class="item" data-src="梭鱼群">
+              <img src="./assets/梭鱼群.jpg" />
+              <span>梭鱼群</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <script>
       const video = document.querySelector("#video");
+      const popup = document.querySelector(".popup");
+
+      document.querySelector("#select").addEventListener("click", () => {
+        popup.classList.add("show");
+      });
+
+      document.querySelector("#close-btn").addEventListener("click", () => {
+        popup.classList.remove("show");
+      });
+
       const items = document.querySelectorAll(".vistas .item");
 
       items.forEach((item) => {
